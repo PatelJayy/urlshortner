@@ -1,12 +1,12 @@
-const {nanoid}=require('nanoid')
+const shortid=require('shortid')
 const URL=require('../models/url')
 
-const handleGenerateNewShortUrl =async (req, res)=> {
+async function handleGenerateNewShortUrl(req, res) {
     const body=req.body;
     if(!body.url){
         return res.status(400).json({error:'URL is required'})
     }
-    const shortId=nanoid(8);
+    const shortId=shortid();
 
     await URL.create({
         shortId:shortId,
@@ -14,5 +14,9 @@ const handleGenerateNewShortUrl =async (req, res)=> {
         visitHistory:[],    
     })
     return res.json({id : shortId})
+}
+
+module.exports={    
+    handleGenerateNewShortUrl
 }
 
