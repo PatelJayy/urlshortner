@@ -14,7 +14,7 @@ app.use('/url',urlRoute);
 
 app.get('/:shortId', async(req,res)=>{
     const shortId=req.params.shortId;
-    const entry=await URL.findByIdAndUpdate({
+    const entry=await URL.findOneAndUpdate({
         shortId
     },{
         $push:{
@@ -22,9 +22,13 @@ app.get('/:shortId', async(req,res)=>{
                timestamp: Date.now()
             }
         },
-    })
+    });
 
-    res.redirect(entry.redirectURL)
+    if (!entry) {
+        return res.status(404).send('Short URL not found');
+    }
+
+    res.redirect(entry.redirectURL);
 })
 
 app.listen(PORT,()=>{console.log(`Server is running on port ${PORT}`)})
