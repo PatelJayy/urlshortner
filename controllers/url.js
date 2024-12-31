@@ -15,7 +15,7 @@ async function handleGenerateNewShortUrl(req, res) {
   });
 
   return res.render("home", {
-    id : shortId,
+    id: shortId,
   });
   // return res.json({ id: shortId });
 }
@@ -31,5 +31,5 @@ async function handleGetAnalytics(req, res) {
 
 module.exports = {
   handleGenerateNewShortUrl,
-    handleGetAnalytics,
+  handleGetAnalytics,
 };
