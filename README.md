@@ -31,6 +31,7 @@ This is a simple URL shortener application built with Node.js, Express, MongoDB,
    ```env
    PORT=8001
    JWT_SECRET=your_jwt_secret
+   MONGO_URI=mongodb://localhost:27017/short-url
    ```
 
 4. Start the MongoDB server:
