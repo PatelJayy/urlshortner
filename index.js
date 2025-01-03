@@ -1,4 +1,5 @@
 const express = require("express");
+const dotenv=require('dotenv');
 const path = require("path");
 const { connectToMongoDB } = require("./connect");
 const cookieParser = require("cookie-parser");
@@ -9,8 +10,9 @@ const staticRoute = require("./routes/staticRouter");
 const urlRoute = require("./routes/url");
 const userRoute=require('./routes/user');
 
+dotenv.config();
 const app = express();
-const PORT = 8001;
+const PORT = process.env.PORT
 
 connectToMongoDB("mongodb://localhost:27017/short-url").then(() => {
   console.log("Connected to MongoDB");
@@ -23,16 +25,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.get("/test", async (req, res) => {
-  const allUrls = await URL.find({});
-  return res.render("home", {
-    urls: allUrls,
-  });
-});
-
-app.use("/url", restrictToLoggedInUsersOnly,urlRoute);
-app.use('/user',checkAuth,userRoute);
-app.use("/", staticRoute);
+app.use("/url",restrictToLoggedInUsersOnly,urlRoute);
+app.use('/user',userRoute);
+app.use("/",checkAuth, staticRoute);
 
 app.get("/url/:shortId", async (req, res) => {
   const shortId = req.params.shortId;
