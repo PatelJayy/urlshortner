@@ -1,4 +1,4 @@
-# Node.js URL Shortener
+#URL Shortener
 
 This is a simple URL shortener application built with Node.js, Express, MongoDB, and EJS.
 
