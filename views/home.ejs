@@ -50,7 +50,8 @@
         border-collapse: collapse;
         margin-top: 20px;
       }
-      th, td {
+      th,
+      td {
         padding: 12px;
         border: 1px solid #ddd;
         text-align: left;
@@ -70,12 +71,22 @@
   <body>
     <h1>URL Shortener</h1>
     <% if (locals.id) { %>
-    <p>URL Generated: <a href="http://localhost:8001/url/<%= id %>">http://localhost:8001/url/<%= id %></a></p>
+    <p>
+      URL Generated:
+      <a href="http://localhost:8001/url/<%= id %>"
+        >http://localhost:8001/url/<%= id %></a
+      >
+    </p>
     <% } %>
     <div>
       <form method="POST" action="/url">
         <label for="url">Enter your Original URL</label>
-        <input type="text" name="url" id="url" placeholder="https://example.com" />
+        <input
+          type="text"
+          name="url"
+          id="url"
+          placeholder="https://example.com"
+        />
         <button type="submit">Generate</button>
       </form>
     </div>
