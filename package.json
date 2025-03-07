@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+    "build": "echo 'Build completed'",
+    "vercel-build": "echo 'Vercel build completed'"
   },
   "author": "",
   "license": "ISC",
