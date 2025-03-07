@@ -12,7 +12,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [18.x, 20.x]
+        node-version: [18.x]
         mongodb-version: ['6.0']
 
     steps:
@@ -28,6 +28,9 @@ jobs:
       uses: supercharge/mongodb-github-action@1.10.0
       with:
         mongodb-version: ${{ matrix.mongodb-version }}
+    
+    - name: Install MongoDB driver
+      run: npm install mongodb mongoose
     
     - name: Install dependencies
       run: npm ci
@@ -61,6 +64,20 @@ jobs:
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
       
+      - name: Create vercel.json if not exists
+        run: |
+          if [ ! -f "vercel.json" ]; then
+            echo '{
+              "version": 2,
+              "builds": [{"src": "index.js", "use": "@vercel/node"}],
+              "routes": [{"src": "/(.*)", "dest": "index.js"}],
+              "functions": {
+                "api/*.js": {"memory": 1024, "maxDuration": 30},
+                "index.js": {"memory": 1024, "maxDuration": 30}
+              }
+            }' > vercel.json
+          fi
+      
       - name: Deploy to Vercel
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
@@ -69,4 +86,5 @@ jobs:
         run: |
           vercel --token ${VERCEL_TOKEN} --prod \
             -e JWT_SECRET="${{ secrets.JWT_SECRET }}" \
-            -e MONGO_URI="${{ secrets.MONGO_URI }}"
+            -e MONGO_URI="${{ secrets.MONGO_URI }}" \
+            -e NODE_ENV="production"
