@@ -88,3 +88,4 @@ jobs:
             -e JWT_SECRET="${{ secrets.JWT_SECRET }}" \
             -e MONGO_URI="${{ secrets.MONGO_URI }}" \
             -e NODE_ENV="production"
+
