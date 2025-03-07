@@ -17,6 +17,7 @@ async function handleGenerateNewShortUrl(req, res) {
 
   return res.render("home", {
     id: shortId,
+    baseURL: `${req.protocol}://${req.headers.host}`
   });
   // return res.json({ id: shortId });
 }

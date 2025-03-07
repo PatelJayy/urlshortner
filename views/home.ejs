@@ -73,9 +73,9 @@
     <% if (locals.id) { %>
     <p>
       URL Generated:
-      <a href="http://localhost:8001/url/<%= id %>"
-        >http://localhost:8001/url/<%= id %></a
-      >
+      <a href="/url/<%= id %>">
+        <%= locals.baseURL ? locals.baseURL : '' %>/url/<%= id %>
+      </a>
     </p>
     <% } %>
     <div>
