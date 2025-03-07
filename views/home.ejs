@@ -71,13 +71,13 @@
   <body>
     <h1>URL Shortener</h1>
     <% if (locals.id) { %>
-    <p>
-      URL Generated:
-      <a href="/url/<%= id %>">
-        <%= locals.baseURL ? locals.baseURL : '' %>/url/<%= id %>
-      </a>
-    </p>
-    <% } %>
+      <p>
+        URL Generated:
+        <a href="/<%= id %>">
+          <%= locals.baseURL ? locals.baseURL : '' %>/<%= id %>
+        </a>
+      </p>
+      <% } %>
     <div>
       <form method="POST" action="/url">
         <label for="url">Enter your Original URL</label>

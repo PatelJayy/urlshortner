@@ -31,7 +31,7 @@ app.use("/url", restrictTo(["NORMAL", "ADMIN"]), urlRoute);
 app.use("/user", userRoute);
 app.use("/", staticRoute);
 
-app.get("/url/:shortId", async (req, res) => {
+app.get("/:shortId", async (req, res) => {
   const shortId = req.params.shortId;
   const entry = await URL.findOneAndUpdate(
     {
@@ -45,12 +45,10 @@ app.get("/url/:shortId", async (req, res) => {
       },
     }
   );
-
   if (!entry) {
-    return res.status(404).send("Short URL not found");
+    return res.status(404).send("URL not found");
   }
-
-  res.redirect(entry.redirectURL);
+  return res.redirect(entry.redirectURL);
 });
 
 // port is in .env
