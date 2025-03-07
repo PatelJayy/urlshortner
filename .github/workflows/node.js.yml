@@ -49,3 +49,24 @@ jobs:
         npm start & sleep 5
         curl -I http://localhost:8001 || true
         pkill -f "node index.js" || true
+
+  deploy:
+    needs: build
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+      
+      - name: Deploy to Vercel
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+        run: |
+          vercel --token ${VERCEL_TOKEN} --prod \
+            -e JWT_SECRET="${{ secrets.JWT_SECRET }}" \
+            -e MONGO_URI="${{ secrets.MONGO_URI }}"
