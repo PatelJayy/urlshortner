@@ -11,20 +11,5 @@
       "src": "/(.*)",
       "dest": "index.js"
     }
-  ],
-  "functions": {
-    "api/*.js": {
-      "memory": 1024,
-      "maxDuration": 30
-    },
-    "index.js": {
-      "memory": 1024,
-      "maxDuration": 30
-    }
-  },
-  "env": {
-    "PORT": "8001",
-    "JWT_SECRET": "@jwt_secret",
-    "MONGO_URI": "@mongo_uri"
-  }
+  ]
 }
